@@ -1,0 +1,31 @@
+/*
+To install, copy this file to:
+
+~/.ipython/profile_default/static/custom (IPython 3.x) or ~/.jupyter/custom (IPython 4.x)
+
+This will always be an empty file in IPython
+*/
+
+.container { width:95% !important; }
+
+
+/* From http://blog.henryhhammond.com/pandas-formatting-snippets/#pretty_tables */
+
+/* Pretty Pandas Dataframes */
+.dataframe * {border-color: #c0c0c0 !important;}
+.dataframe th{
+  background: #eee;
+  text-align: center;
+}
+.dataframe td{
+    background: #fff;
+    text-align: center; 
+    min-width:5em;
+}
+
+/* Format summary rows */
+.dataframe-summary-row tr:last-child,
+.dataframe-summary-col td:last-child{
+    background: #eee;
+    font-weight: 500;
+}
