@@ -4,7 +4,7 @@ IPython.toolbar.add_buttons_group([
   {
     'label'   : 'Create table of contents (no links)',
     'icon'    : 'fa-list',
-	  'callback': function(){
+    'callback': function(){
       IPython.notebook.insert_cell_at_index('code',0);
       var toc = '# <span style="font-size: 1.6em;">' + window.document.getElementById("notebook_name").innerHTML
                 + '\n---\n## Table of Contents\n'
@@ -58,9 +58,9 @@ IPython.toolbar.add_buttons_group([
 
               level2 += 1;
               level3 = 0;
-              toc += '    ' + level1 + '.' + level2 + '. ' + txt + '\n'; // identation
+              toc += '    ' + level1 + '.' + level2 + '. ' + txt + '\n'; // indentation
               //toc += '#### ' + level1 + '.' + level2 + '. ' + txt + '\n'; // bold font
-              // It's either bold font or with identation
+              // It's either bold font or with indentation
 
             } else if (level == 3) {
 
@@ -76,6 +76,4 @@ IPython.toolbar.add_buttons_group([
         IPython.notebook.to_markdown(0);
         IPython.notebook.get_cell(0).execute();
         IPython.notebook.scroll_to_top();
-		}
-  }
-])
+    }}])
