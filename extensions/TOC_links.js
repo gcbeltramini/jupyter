@@ -1,13 +1,14 @@
 IPython.toolbar.add_buttons_group([
 
   // Create table of contents (with links)
+  // =====================================
   {
-		'label'   : 'Create table of contents with links',
-	  'icon'    : 'fa-list',
-	  'callback': function(){
+    'label'   : 'Create table of contents with links',
+    'icon'    : 'fa-list',
+    'callback': function(){
 
-      if (confirm("This will edit the markdown cells with titles to create links. \
-If you wish to restore the changes, use the unlink button. Do you want to continue?") == false) {
+      if (!confirm("This will edit the markdown cells with titles to create links. \
+If you wish to restore the changes, use the unlink button. Do you want to continue?")) {
         return;
       }
 
@@ -63,7 +64,7 @@ If you wish to restore the changes, use the unlink button. Do you want to contin
 
           // Create table of contents
           // ------------------------
-          // If an identation is added, the link won't work
+          // If an indentation is added, the link won't work
           
           if (level == 1) {
 
@@ -124,14 +125,15 @@ If you wish to restore the changes, use the unlink button. Do you want to contin
   },
 
 
-  // Create table of contents - remove links
+  // Remove the links created by the function above
+  // ==============================================
   {
     'label'   : 'Unlink: remove links created with the TOC button',
     'icon'    : 'fa-unlink',
     'callback': function(){
 
-      if (confirm("This will edit the markdown cells with titles to remove the links. \
-If you wish to restore the changes, create a backup copy of the IPython notebook. Do you want to continue?") == false) {
+      if (!confirm("This will edit the markdown cells with titles to remove the links. \
+If you wish to restore the changes, create a backup copy of the IPython notebook. Do you want to continue?")) {
         return;
       }
 
@@ -169,7 +171,4 @@ If you wish to restore the changes, create a backup copy of the IPython notebook
           curr.set_text(txt);
           curr.execute();
 
-      }
-    }
-  }
-])
+      }}}])
