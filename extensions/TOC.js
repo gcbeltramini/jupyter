@@ -6,7 +6,7 @@ IPython.toolbar.add_buttons_group([
     'icon'    : 'fa-list',
     'callback': function(){
       IPython.notebook.insert_cell_at_index('code',0);
-      var toc = '# <span style="font-size: 1.6em;">' + window.document.getElementById("notebook_name").innerHTML
+      var toc = '# ' + window.document.getElementById("notebook_name").innerHTML
                 + '\n---\n## Table of Contents\n'
       var level  = 0;
       var level1 = 0; // counter for level 1
