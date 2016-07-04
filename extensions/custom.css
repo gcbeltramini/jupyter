@@ -8,24 +8,59 @@ This will always be an empty file in IPython
 
 .container { width:95% !important; }
 
+/* Colors = [color-dark-2, color-dark-1, color-dark] = ['#ece2f0', '#a6bddb', '#1c9099'] */
 
 /* From http://blog.henryhhammond.com/pandas-formatting-snippets/#pretty_tables */
 
 /* Pretty Pandas Dataframes */
 .dataframe * {border-color: #c0c0c0 !important;}
-.dataframe th{
-  background: #eee;
-  text-align: center;
+.dataframe th {
+    background: #efedf5; /* color-dark-2 */
+    text-align: left;
 }
-.dataframe td{
+.dataframe thead tr:first-child th {
+    background: #a6bddb; /* color-dark-1 (hover) */
+    text-align: center;
+}
+.dataframe td {
     background: #fff;
-    text-align: center; 
-    min-width:5em;
+    text-align: center;
+    min-width: 5em;
 }
 
 /* Format summary rows */
 .dataframe-summary-row tr:last-child,
-.dataframe-summary-col td:last-child{
+.dataframe-summary-col td:last-child {
     background: #eee;
     font-weight: 500;
+}
+
+/* Hover (rows) */
+.dataframe tr:hover td {
+    background-color: #CCCCCC;
+}
+.dataframe tr:hover th {
+    background-color: #a6bddb; /* color-dark-1 (hover) */
+    color: white;
+}
+
+/* Headers */
+h1 {
+    background-color: #1c9099; /* color-dark */
+    color: white;
+    padding: 0.8em;
+}
+h2 {
+    background-color: #a6bddb; /* color-dark-1 */
+    color: white;
+    padding: 0.5em;
+}
+h3 {
+    background-color: #ece2f0; /* color-dark-2 */
+    color: #1c9099; /* color-dark */
+    padding: 0.5em;
+}
+h4 {
+    color: #1c9099; /* color-dark */
+    padding: 0.5em;
 }
