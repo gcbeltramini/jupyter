@@ -8,11 +8,7 @@ IPython.toolbar.add_buttons_group([
     'callback': function(){
       var cell = IPython.notebook.get_selected_cell();
       cell.element.find("div.input").toggle('slow');
-      if ( cell.metadata.input_collapsed ) {
-      	cell.metadata.input_collapsed = false;
-      } else {
-        cell.metadata.input_collapsed = true;
-      }
+      cell.metadata.input_collapsed = !cell.metadata.input_collapsed;
     }
   },
   
@@ -23,12 +19,8 @@ IPython.toolbar.add_buttons_group([
     'icon'    : 'fa-angle-down',
     'callback': function(){
     	var cell = IPython.notebook.get_selected_cell();
-    	cell.element.find("div.output").toggle('slow')
-    	if ( cell.metadata.output_collapsed ) {
-    	  cell.metadata.output_collapsed = false;
-    	} else {
-          cell.metadata.output_collapsed = true;
-        }
+    	cell.element.find("div.output").toggle('slow');
+    	cell.metadata.output_collapsed = !cell.metadata.output_collapsed;
       }
   },
 
