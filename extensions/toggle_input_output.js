@@ -44,4 +44,28 @@ IPython.toolbar.add_buttons_group([
     	$('#notebook').find('.output').slideToggle();
     }
   },
+
+  // Show all input cells
+  {
+    'id'      : 'show_input',
+    'label'   : 'Show all input cells',
+    'icon'    : 'fa-arrow-circle-up',
+    // fa-arrow-circle-o-up, fa-arrow-circle-up, fa-arrow-up, fa-caret-square-o-up, fa-caret-up, fa-chevron-circle-up, fa-chevron-up, fa-long-arrow-up
+    'callback': function(){
+      $('#notebook').find('.input').show();
+    }
+  },
+
+  // Show all output cells
+  {
+    'id'      : 'show_output',
+    'label'   : 'Show all output cells',
+    'icon'    : 'fa-arrow-circle-down',
+    'callback': function(){
+      $('#notebook').find('.output').show();
+    }
+  },
+
 ])
+
+console.log("Custom button to show/hide the input/output loaded successfully!");
