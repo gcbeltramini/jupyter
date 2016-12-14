@@ -1,24 +1,34 @@
-IPython.toolbar.add_buttons_group([
-  
+Jupyter.toolbar.add_buttons_group([
+
+  // Toggle prompt
+  {
+    'id' : 'toggle_prompt',
+    'label' : 'Show/hide In[x], Out[x]',
+    'icon' : 'fa-toggle-left',
+    'callback': function(){
+        $('#notebook').find('.prompt').toggle(); // toggle prompt (In[x], Out[x])
+    }
+  },
+
   // Toggle current input cell
   {
     'id'      : 'toggle_current_input_cell',
     'label'   : 'Show/hide current input cell',
     'icon'    : 'fa-angle-up',
     'callback': function(){
-      var cell = IPython.notebook.get_selected_cell();
+      var cell = Jupyter.notebook.get_selected_cell();
       cell.element.find("div.input").toggle('slow');
       cell.metadata.input_collapsed = !cell.metadata.input_collapsed;
     }
   },
-  
+
   // Toggle current output cell
   {
     'id'      : 'toggle_current_output_cell',
     'label'   : 'Show/hide current output cell',
     'icon'    : 'fa-angle-down',
     'callback': function(){
-    	var cell = IPython.notebook.get_selected_cell();
+    	var cell = Jupyter.notebook.get_selected_cell();
     	cell.element.find("div.output").toggle('slow');
     	cell.metadata.output_collapsed = !cell.metadata.output_collapsed;
       }
@@ -68,4 +78,4 @@ IPython.toolbar.add_buttons_group([
 
 ])
 
-console.log("Custom button to show/hide the input/output loaded successfully!");
+console.log("Custom buttons to show/hide the input/output and to toggle the In/Out text loaded successfully!");
