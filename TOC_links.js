@@ -1,4 +1,8 @@
-IPython.toolbar.add_buttons_group([
+var CONFIRMATION_MESSAGE = "This will edit the markdown cells with titles to remove the links." +
+                           " If you wish to restore the changes, create a backup copy of the Jupyter notebook." +
+                           " Do you want to continue?"
+
+Jupyter.toolbar.add_buttons_group([
 
   // Create table of contents (with links)
   // =====================================
@@ -7,35 +11,41 @@ IPython.toolbar.add_buttons_group([
     'icon'    : 'fa-list',
     'callback': function(){
 
-      if (!confirm("This will edit the markdown cells with titles to create links. \
-If you wish to restore the changes, use the unlink button. Do you want to continue?")) {
-        return;
-      }
+      if (!confirm(CONFIRMATION_MESSAGE)) return;
 
-      IPython.notebook.save_notebook(); // save the notebook before making changes
+      Jupyter.notebook.save_notebook(); // save the notebook before making changes
 
-      IPython.notebook.insert_cell_at_index('code', 0);
-      var toc = '# ' + window.document.getElementById("notebook_name").innerHTML
-                + '<a id="top"></a>\n---\n## Table of Contents\n'
-      var level1 = 0; // counter for level 1
-      var level2 = 0; // counter for level 2
-      var level3 = 0; // counter for level 3
-      for (var cc = 0; cc < IPython.notebook.ncells(); cc++) {
+      Jupyter.notebook.insert_cell_at_index('code', 0);
 
-          var curr = IPython.notebook.get_cell(cc);
+      // Initalize variables
+      // -------------------
+      var toc = '# ' + window.document.getElementById("notebook_name").innerHTML +
+                '<a id="top"></a>\n---\n## Table of Contents\n',
+          level1, level2, level3, // counter for levels 1, 2 and 3
+          txt, title, tag,
+          edit_markdown = false;
+      level1 = level2 = level3 = 0;
+      txt = title = tag = "";
+
+      for (var cc = 0; cc < Jupyter.notebook.ncells(); cc++) {
+
+          var curr = Jupyter.notebook.get_cell(cc);
 
           if (curr.cell_type != 'markdown') continue;
 
           // Read text
           // ---------
-          var txt = curr.get_text();
+          txt = curr.get_text();
 
           // Loop over the titles
           // --------------------
           titles = findTitles(txt);
           for (var tt = 0; tt < titles.length; tt++) {
-              var title = titles[tt];
-              var [[level1, level2, level3], tag, toc, edit_markdown] = addToTOC_links(titleToLevel(title), [level1, level2, level3], trimTitle(title), toc);
+              title = titles[tt];
+              [[level1, level2, level3], tag, toc, edit_markdown] = addToTOC_links(titleToLevel(title),
+                                                                                          [level1, level2, level3],
+                                                                                          trimTitle(title),
+                                                                                          toc);
               if (edit_markdown) {
                   txt = replaceLine(txt, title, titleToLink(title, tag));
               }
@@ -52,10 +62,10 @@ If you wish to restore the changes, use the unlink button. Do you want to contin
       // Insert TOC at the beginning
       // ---------------------------
       toc = toc.substring(0, toc.length - 1); // remove the last line break
-      IPython.notebook.get_cell(0).set_text(toc);
-      IPython.notebook.to_markdown(0);
-      IPython.notebook.get_cell(0).execute();
-      IPython.notebook.scroll_to_top();
+      Jupyter.notebook.get_cell(0).set_text(toc);
+      Jupyter.notebook.to_markdown(0);
+      Jupyter.notebook.get_cell(0).execute();
+      Jupyter.notebook.scroll_to_top();
     }
   },
 
@@ -67,31 +77,31 @@ If you wish to restore the changes, use the unlink button. Do you want to contin
     'icon'    : 'fa-unlink',
     'callback': function(){
 
-      if (!confirm("This will edit the markdown cells with titles to remove the links. \
-If you wish to restore the changes, create a backup copy of the IPython notebook. Do you want to continue?")) {
-        return;
-      }
+      if (!confirm(CONFIRMATION_MESSAGE)) return;
 
-      IPython.notebook.save_notebook(); // save the notebook before making changes
+      Jupyter.notebook.save_notebook(); // save the notebook before making changes
 
-      var idx1 = '';
-      var idx2 = '';
-      for (var i = 0; i < IPython.notebook.ncells(); i++) {
+      // Initalize variables
+      // -------------------
+      var txt, title, no_link;
+      txt = title = no_link = '';
 
-          var curr = IPython.notebook.get_cell(i);
+      for (var i = 0; i < Jupyter.notebook.ncells(); i++) {
+
+          var curr = Jupyter.notebook.get_cell(i);
 
           if (curr.cell_type != 'markdown') continue;
 
           // Read text
           // ---------
-          var txt = curr.get_text();
+          txt = curr.get_text();
 
           // Loop over the titles
           // --------------------
-          titles = findTitles(txt);
+          var titles = findTitles(txt);
           for (var tt = 0; tt < titles.length; tt++) {
-              var title = titles[tt];
-              var no_link = removeLink(title);
+              title = titles[tt];
+              no_link = removeLink(title);
               if (title != no_link) {
                   txt = replaceLine(txt, title, no_link);
               }

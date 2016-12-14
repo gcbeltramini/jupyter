@@ -1,4 +1,4 @@
-IPython.toolbar.add_buttons_group([
+Jupyter.toolbar.add_buttons_group([
 
   // Create table of contents
   // ========================
@@ -7,38 +7,45 @@ IPython.toolbar.add_buttons_group([
     'icon'    : 'fa-list',
     'callback': function(){
 
-      IPython.notebook.insert_cell_at_index('code', 0);
-      var toc = '# ' + window.document.getElementById("notebook_name").innerHTML
-                + '\n---\n## Table of Contents\n'
-      var level1 = 0; // counter for level 1
-      var level2 = 0; // counter for level 2
-      var level3 = 0; // counter for level 3
-      for (var cc = 0; cc < IPython.notebook.ncells(); cc++) {
+      // Initalize variables
+      // -------------------
+      var toc = '# ' + window.document.getElementById("notebook_name").innerHTML +
+                '\n---\n## Table of Contents\n',
+          level1, level2, level3, // counter for levels 1, 2 and 3
+          txt, title;
+      level1 = level2 = level3 = 0;
+      txt = title = "";
 
-          var curr = IPython.notebook.get_cell(cc);
+      for (var cc = 0; cc < Jupyter.notebook.ncells(); cc++) {
 
-          if (curr.cell_type != 'markdown') continue;
+        var curr = Jupyter.notebook.get_cell(cc);
 
-            // Read text
-            // ---------
-            var txt = curr.get_text();
+        if (curr.cell_type != 'markdown') continue;
 
-            // Loop over the titles
-            // --------------------
-            titles = findTitles(txt);
-            for (var tt = 0; tt < titles.length; tt++) {
-                var title = titles[tt];
-                var [[level1, level2, level3], toc] = addToTOC(titleToLevel(title), [level1, level2, level3], trimTitle(title), toc);
-            }
+        // Read text
+        // ---------
+        txt = curr.get_text();
+
+        // Loop over the titles
+        // --------------------
+        titles = findTitles(txt);
+        for (var tt = 0; tt < titles.length; tt++) {
+          title = titles[tt];
+          [[level1, level2, level3], toc] = addToTOC(titleToLevel(title),
+                                                     [level1, level2, level3],
+                                                     trimTitle(title),
+                                                     toc);
         }
+      }
 
-        // Insert TOC at the beginning
-        // ---------------------------
-        toc = toc.substring(0, toc.length - 1); // remove the last line break
-        IPython.notebook.get_cell(0).set_text(toc);
-        IPython.notebook.to_markdown(0);
-        IPython.notebook.get_cell(0).execute();
-        IPython.notebook.scroll_to_top();
+      // Insert TOC at the beginning
+      // ---------------------------
+      toc = toc.substring(0, toc.length - 1); // remove the last line break
+      Jupyter.notebook.insert_cell_at_index('code', 0);
+      Jupyter.notebook.get_cell(0).set_text(toc);
+      Jupyter.notebook.to_markdown(0);
+      Jupyter.notebook.get_cell(0).execute();
+      Jupyter.notebook.scroll_to_top();
     }
   }
 ])

@@ -28,10 +28,12 @@ Or use the autocomplete in the code editor.
  */
 
 
-$([IPython.events]).on('app_initialized.NotebookApp', function(){
-    require(['/custom/toggle_prompt.js'])
-    require(['/custom/toggle_input_output.js'])
-    require(['/custom/auxiliary_TOC_fn.js'])
-    require(['/custom/TOC.js'])
-    require(['/custom/TOC_links.js'])
+$([Jupyter.events]).on('app_initialized.NotebookApp', function(){
+    require([
+    	'/custom/toggle_prompt_input_output.js',
+    	'/custom/auxiliary_TOC_fn.js',
+    	'/custom/TOC.js',
+    	'/custom/TOC_links.js',
+    	'/custom/toggle_menu.js'
+    	])
 });
