@@ -1,19 +1,23 @@
 /*
 To install, copy this file to:
 
-~/.ipython/profile_default/static/custom (IPython 3.x) or ~/.jupyter/custom (IPython 4.x)
+~/.ipython/profile_default/static/custom (IPython 3.x) or ~/.jupyter/custom (IPython 4+)
 
 This will always be an empty file in IPython
 */
 
-.container { width:95% !important; }
+
+/* Extend the cells */
+.notebook_app .container { width:95% !important; }
+
 
 /* Colors */
 :root {
     --color-dark: #1c9099;
     --color-dark-1: #a6bddb;
-    --color-dark-2: #ece2f0;
+    --color-dark-2: rgba(166, 189, 219, 0.4);
 }
+
 
 /* From http://blog.henryhhammond.com/pandas-formatting-snippets/#pretty_tables */
 
@@ -24,7 +28,7 @@ This will always be an empty file in IPython
     text-align: left;
 }
 .dataframe thead tr:first-child th {
-    background: var(--color-dark-1); /* same color for the hover */
+    background: var(--color-dark-1); /* same color as the hover */
     text-align: center;
 }
 .dataframe td {
@@ -45,9 +49,10 @@ This will always be an empty file in IPython
     background-color: #CCCCCC;
 }
 .dataframe tr:hover th {
-    background-color: var(--color-dark-1); /* same color for the first-child  */
+    background-color: var(--color-dark-1); /* same color as the first-child  */
     color: white;
 }
+
 
 /* Headers */
 h1 {
@@ -68,4 +73,16 @@ h3 {
 h4 {
     color: var(--color-dark);
     padding: 0.5em;
+}
+
+
+/* Background */
+.notebook_app {
+    background-color: var(--color-dark-2);
+}
+#notebook-container {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.cell {
+    background-color: white;
 }
