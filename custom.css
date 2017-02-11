@@ -16,6 +16,9 @@ This will always be an empty file in IPython
     --color-dark: #1c9099;
     --color-dark-1: #a6bddb;
     --color-dark-2: rgba(166, 189, 219, 0.4);
+
+    --link-color-h1: #1abbeb;
+    --link-color-h1-hover: #337ab7;
 }
 
 
@@ -60,6 +63,8 @@ h1 {
     color: white;
     padding: 0.8em;
 }
+h1 a {color: var(--link-color-h1);} /* Link color (because of the header background) */
+h1 a:hover {color: var(--link-color-h1-hover);}
 h2 {
     background-color: var(--color-dark-1);
     color: white;
